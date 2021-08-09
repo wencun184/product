@@ -1,0 +1,103 @@
+/* 取消所有元素自带空白区域 */
+blockquote,
+body,
+button,
+dd,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+input,
+legend,
+li,
+ol,
+p,
+pre,
+td,
+textarea,
+th,
+ul,
+figure,
+figcaption {
+  margin: 0;
+  padding: 0;
+}
+html {
+  overflow-x: hidden;
+}
+body {
+  font-family: "微软雅黑";
+  font-size: 12px;
+}
+/* 取消加粗 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+/* 取消倾斜 */
+em,
+i {
+  font-style: normal;
+}
+/* 取消列表符号 */
+ul,
+li,
+ol {
+  list-style: none;
+}
+/* 取消划线 */
+a {
+  text-decoration: none;
+  color: #333;
+}
+/* 解决图片下方空隙 */
+img,
+fieldset {
+  border: 0;
+}
+img {
+  display: block;
+}
+/* 取消边框 */
+input {
+  border: none;
+}
+
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+
+/* 解决高度塌陷 */
+.cleanfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+.cleanfix {
+  zoom: 1;
+}
+/* 鼠标状态显示小手 */
+button {
+  cursor: pointer;
+}
+input,
+a {
+  outline: none;
+}
