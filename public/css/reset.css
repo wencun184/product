@@ -34,7 +34,7 @@ html {
 }
 body {
   font-family: "微软雅黑";
-  font-size: 12px;
+  font-size: 14px;
 }
 /* 取消加粗 */
 h1,
@@ -68,6 +68,7 @@ fieldset {
 }
 img {
   display: block;
+  max-width: 100%;
 }
 /* 取消边框 */
 input {
@@ -96,6 +97,7 @@ input {
 /* 鼠标状态显示小手 */
 button {
   cursor: pointer;
+  border: none;
 }
 input,
 a {

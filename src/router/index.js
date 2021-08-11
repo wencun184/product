@@ -9,6 +9,7 @@ const router = new VueRouter({
     },
     {
       path: "/register",
+      name: "Register",
       component: () => import("../views/Register.vue"),
       meta: {
         footShow: false,
@@ -16,6 +17,7 @@ const router = new VueRouter({
     },
     {
       path: "/login",
+      name: "Login",
       component: () => import("../views/Login.vue"),
       meta: {
         footShow: false,
@@ -23,6 +25,7 @@ const router = new VueRouter({
     },
     {
       path: "/home",
+      name: "Home",
       component: () => import("../views/Home.vue"),
       meta: {
         footShow: true,
@@ -30,20 +33,15 @@ const router = new VueRouter({
     },
     {
       path: "/cart",
+      name: "Cart",
       component: () => import("../views/Cart.vue"),
       meta: {
         footShow: true,
       },
     },
     {
-      path: "/profile",
-      component: () => import("../views/Profile.vue"),
-      meta: {
-        footShow: true,
-      },
-    },
-    {
       path: "/sort",
+      name: "Sort",
       component: () => import("../views/Sort.vue"),
       meta: {
         footShow: true,
@@ -56,7 +54,41 @@ const router = new VueRouter({
         footShow: false,
       },
     },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: () => import("../views/Profile.vue"),
+      meta: {
+        footShow: true,
+      },
+    },
+    {
+      path: "/profile/password",
+      name: "ChangPWD",
+      component: () => import("../views/user/ChangPWD.vue"),
+    },
+    {
+      path: "/profile/info",
+      name: "ChangPWD",
+      component: () => import("../views/user/Info.vue"),
+    },
+    {
+      path: "/profile/address",
+      name: "Address",
+      component: () => import("../views/user/Address.vue"),
+    },
+    {
+      path: "/profile/order",
+      name: "Order",
+      component: () => import("../views/user/Order.vue"),
+    },
+    {
+      path: "*",
+      component: () => import("../views/Error.vue"),
+      meta: {
+        footShow: false,
+      },
+    },
   ],
-  linkActiveClass: "active",
 });
 export default router;
