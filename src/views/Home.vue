@@ -62,7 +62,7 @@ export default {
     watch: {},
     methods: {
         async pic(){
-            const result = await get('/api/v1/products',{ per:6,page:2,})
+            const result = await get('/api/v1/products',{ per:5,page:3,})
             this.pictures=result.data.products;
             console.log(result.data.products);
             },
