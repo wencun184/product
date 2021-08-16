@@ -76,10 +76,16 @@ export default {
     }
 </script>
 <style scoped>
+    .register{
+        background: url(../assets/背景图.webp) no-repeat ;
+        background-size: cover;
+        min-height: 570px;
+    }
     .register .title{
         font-size: 20px;
         text-align: center;
         padding: 50px 0 30px;
+        color: rgb(63, 15, 109);
     }
     .register label .pic {
         width: 80px;
@@ -87,7 +93,8 @@ export default {
         border-radius: 50%;
         overflow: hidden;
         margin: 0 auto;
-        border:1px solid #ccc
+        border:1px solid #ccc;
+        background: rgba(255, 255, 255, 0.363);
     }
     .register label .no{
         display: none;
@@ -106,15 +113,17 @@ export default {
         width: 100%;
         height: 30px;
         border: 1px solid #ccc;
-        border-radius: 3px;
+        border-radius: 10px;
         margin-top:30px;
         text-indent: 5px;
+        background: rgba(255, 255, 255, 0.493);
     }
     button{
     width: 100%;
-    margin-top: 20px;
+    margin-top: 30px;
     height: 30px;
-    background: orange;
+    border-radius: 15px;
+     background: #bc8ddd;
     color: white;
     border:none
     }
@@ -123,7 +132,7 @@ export default {
         font-size: 14px;
     }
     .register .message .zhuce span{
-        color: orange;
+        color: rgb(255, 0, 43);
 
     }
 </style>

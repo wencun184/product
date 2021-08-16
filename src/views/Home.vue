@@ -7,9 +7,9 @@
                 <input type="text" v-model="msg">
                 <button>搜索</button>
             </div>
-            <van-tabs v-model="active" title-inactive-color="white" title-active-color="white" color="white" background="pink">
+            <!-- <van-tabs v-model="active" title-inactive-color="white" title-active-color="white" color="white" background="pink">
             <van-tab v-for="item in sorts" :key='item._id' :title="item.name" ></van-tab>
-            </van-tabs>
+            </van-tabs> -->
         </div>
         
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -55,14 +55,14 @@ export default {
             finished: false,
             page:1,
             sorts:[],
-            active: 0,
+            // active: 0,
         };
     },
     computed: {},
     watch: {},
     methods: {
         async pic(){
-            const result = await get('/api/v1/products',{ per:8,page:1,})
+            const result = await get('/api/v1/products',{ per:6,page:2,})
             this.pictures=result.data.products;
             console.log(result.data.products);
             },
@@ -88,11 +88,6 @@ export default {
             const result = await get('/api/v1/product_categories')
             this.sorts=(result.data.categories).slice(0,6);
             },
-        /* search(msg){
-            console.log(msg);
-            this.pictures = this.pictures.filter(item=>item.name.indexOf(msg)!=-1)
-            console.log(this.pictures);
-        } */
         },
     created() {
         this.pic();
@@ -111,13 +106,13 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    height: 82px;
+    height: 102px;
     width: 100%;
-    background: pink;
+    background: linear-gradient(to bottom, rgb(250, 120, 152),rgb(253, 218, 218)) ;
     z-index: 5;
 }
 .header .top{
-    padding: 10px 0;
+    padding: 30px 0 10px 0;
     font-size: 16px;
     text-align: center;
     color:#fff;
@@ -159,10 +154,10 @@ font-size: 18px;
     color: plum;
 }
 .my-swipe{
-   margin-top: 120px;
+   margin-top: 102px;
    text-align: center;
    width: 100%;
-   height: 200px;
+   height: 230px;
    background: rgb(250, 238, 238);
 }
 .my-swipe img{
@@ -170,7 +165,7 @@ font-size: 18px;
     width: 100%;
 }
 .sorts{
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
@@ -203,15 +198,15 @@ font-size: 18px;
     padding-top:10px ;
 }
 .home .content .list{
-    border-radius: 5px;
+    border-radius: 10px;
     background: white;
     width: 45%;
-    margin: 0 8px 10px 8px;
+    margin-bottom:10px;
 }
 .home .content .list .pic{
     width: 144px;
     height: 144px;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     overflow: hidden;
 }
 .home .content .list h3{

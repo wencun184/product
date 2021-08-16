@@ -50,10 +50,16 @@ export default {
     }
 </script>
 <style scoped>
+    .login{
+        background: url(../assets/背景图.webp) no-repeat ;
+        background-size: cover;
+        min-height: 570px;
+    }
     .login .title{
         font-size: 20px;
         text-align: center;
         padding: 50px 0 30px;
+        color: rgb(63, 15, 109);
     }
     .login .message{
         width: 200px;
@@ -64,15 +70,17 @@ export default {
         width: 100%;
         height: 30px;
         border: 1px solid #ccc;
-        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.363);
+        border-radius: 10px;
         margin-top:30px;
         text-indent: 5px;
     }
     button{
     width: 100%;
-    margin-top: 20px;
+    margin-top: 30px;
     height: 30px;
-    background: orange;
+    border-radius: 15px;
+    background: #bc8ddd;
     color: white;
     border:none
     }
@@ -81,6 +89,6 @@ export default {
         font-size: 14px;
     }
     .login .message .zhuce span{
-        color: orange;
+        color: rgb(255, 0, 43);
     }
 </style>

@@ -13,6 +13,7 @@ const router = new VueRouter({
       component: () => import("../views/Register.vue"),
       meta: {
         footShow: false,
+        keepAlive: true,
       },
     },
     {
@@ -21,6 +22,7 @@ const router = new VueRouter({
       component: () => import("../views/Login.vue"),
       meta: {
         footShow: false,
+        keepAlive: true,
       },
     },
     {
@@ -29,6 +31,8 @@ const router = new VueRouter({
       component: () => import("../views/Home.vue"),
       meta: {
         footShow: true,
+        keepAlive: true,
+        isUseCache: false,
       },
     },
     {
@@ -37,6 +41,7 @@ const router = new VueRouter({
       component: () => import("../views/Cart.vue"),
       meta: {
         footShow: true,
+        keepAlive: false,
       },
     },
     {
@@ -45,13 +50,17 @@ const router = new VueRouter({
       component: () => import("../views/Sort.vue"),
       meta: {
         footShow: true,
+        keepAlive: true,
+        isUseCache: false,
       },
     },
     {
       path: "/detail/:id",
+      name: "Detail",
       component: () => import("../views/Detail.vue"),
       meta: {
         footShow: false,
+        keepAlive: false,
       },
     },
     {
@@ -60,6 +69,7 @@ const router = new VueRouter({
       component: () => import("../views/Profile.vue"),
       meta: {
         footShow: true,
+        keepAlive: true,
       },
     },
     {
@@ -69,7 +79,7 @@ const router = new VueRouter({
     },
     {
       path: "/profile/info",
-      name: "ChangPWD",
+      name: "Info",
       component: () => import("../views/user/Info.vue"),
     },
     {
@@ -78,9 +88,24 @@ const router = new VueRouter({
       component: () => import("../views/user/Address.vue"),
     },
     {
+      path: "/profile/address/addaddress",
+      name: "Addaddress",
+      component: () => import("../views/user/Addaddress.vue"),
+    },
+    {
+      path: "/profile/address/editaddress/:id",
+      name: "Editaddress",
+      component: () => import("../views/user/Editaddress.vue"),
+    },
+    {
       path: "/profile/order",
       name: "Order",
       component: () => import("../views/user/Order.vue"),
+    },
+    {
+      path: "/profile/order/orderdetail/:id",
+      name: "Orderdetail",
+      component: () => import("../views/user/Orderdetail.vue"),
     },
     {
       path: "*",

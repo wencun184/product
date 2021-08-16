@@ -55,6 +55,7 @@ export default {
     async category(){
             const result = await get('/api/v1/product_categories')
             this.pictures=(result.data.categories).slice(0,6);
+            // 先获取所有分类以后才能取初始化显示数据
             const res = await get('/api/v1/products',{product_category:this.pictures[0]._id,per:20})
             this.picture=res.data.products;
             },
@@ -70,7 +71,6 @@ export default {
         this.category()
     },
     mounted() {
-        
     },
     }
 </script>

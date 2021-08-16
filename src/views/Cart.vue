@@ -8,7 +8,7 @@
         <div class="content">
             <ul>
                 <li v-for='item in products' :key='item._id'>
-                    <van-checkbox v-model="item.checked" class="check" icon-size="16px"></van-checkbox>
+                    <van-checkbox v-model="item.checked" class="check" icon-size="16px" checked-color="tomato"></van-checkbox>
                     <div class="pic" @click="detail(item.product._id)">
                         <img :src="item.product.coverImg" alt="">
                     </div>
@@ -16,9 +16,9 @@
                         <h3>{{item.product.name}}</h3>
                         <p>￥{{item.product.price}}</p>
                         <div class="num" v-if='flag'>
-                            <span class="sub" @click="updatenum(item.product._id,-1)">-</span>
-                            <input type="text" v-model="item.quantity">
-                            <span class="add"  @click="updatenum(item.product._id,1)">+</span>
+                            <span class="sub" @click="numsub(item.product._id)">-</span>
+                            <input type="text" v-model="item.quantity" readonly="readonly">
+                            <span class="add"  @click="numadd(item.product._id)">+</span>
                         </div>
                         <div v-if='!flag' class="del" @click="del(item._id)">
                             删除×
@@ -29,7 +29,7 @@
         </div>
         <div class="foot" v-if="products.length!=0">
             <div class="checks">
-                <van-checkbox v-model="checked" class="checks" icon-size="18px"><span>全选</span></van-checkbox>
+                <van-checkbox v-model="checked" class="checks" icon-size="18px" checked-color="tomato"><span>全选</span></van-checkbox>
             </div>
             <div class="buy">
                 <span>合计：<i>￥{{total}}</i></span>
@@ -42,6 +42,7 @@
 <script>
 import {get,post,delet} from'../util/request'
 import { Dialog } from 'vant';
+import { Toast } from 'vant'
 export default {
     
     components: {},
@@ -51,6 +52,7 @@ export default {
             checks:[],
             orderDetails:[],
             flag:true,
+            address:'',
         };
     },
     computed: {
@@ -96,31 +98,68 @@ export default {
         //获取商品
         async cart(){
             const result=await get('/api/v1/shop_carts');
-            console.log(result);
            this.products=result.data;
         },
-        //更新数量
-        async updatenum(id,num){
-            await post('/api/v1/shop_carts',{product:id,quantity:num,})
-             this.products.forEach((item)=>{
+        //更新数量减
+        numsub(id){
+            this.products.forEach( async (item)=>{
                 if(item.product._id==id){
-                    item.quantity=item.quantity+num
+                    if(item.quantity<=1){
+                        Toast('该宝贝不能减少了哟~');
+                    }else{
+                        await post('/api/v1/shop_carts',{product:id,quantity:-1,})
+                        item.quantity--;
+                    }
+                }
+            }) 
+        },
+        //更新数量加
+        numadd(id){
+            this.products.forEach( async (item)=>{
+                if(item.product._id==id){
+                    await post('/api/v1/shop_carts',{product:id,quantity:1,})
+                    item.quantity++
                 }
             })
-            console.log(this.products);
-        },
-        //添加订单
+        }, 
+            /* await post('/api/v1/shop_carts',{product:id,quantity:num,})
+             this.products.forEach((item)=>{
+                if(item.product._id==id){
+                    if(item.quantity<=1){
+                        Toast('该宝贝不能减少了哟~');
+                    }else{
+                        item.quantity=item.quantity+num
+                    }
+                }
+            }) */
+        
+        //提交订单
         async addOrder(){
-            console.log(this.getorder);
-            const result=await post('/api/v1/orders',
-           {
-               receiver:'小明',
-                regions:'河南郑州',
-                address:'威科姆',
-                orderDetails:this.getorder,
-           }
-           );
-           console.log(result);
+            Dialog.confirm({
+            title: '提交订单',
+            message: '确认要提交订单吗？',
+            })
+            .then( async() => {
+              if(!this.address){
+                  Toast('请去个人中心添加地址！');
+              }else{
+                  if(this.getorder.length==0){
+                    Toast('请选择要购买的商品！');
+                }else{
+                    const result=await post('/api/v1/orders',
+                    {
+                        receiver:this.address.receiver,
+                        regions:this.address.regions,
+                        address:this.address.address,
+                        orderDetails:this.getorder,
+                    }
+                );
+                 console.log(result);
+                }
+              }
+                this.cart()
+            })
+            .catch(() => {});
         },
         //单个删除
          del(id){
@@ -144,8 +183,12 @@ export default {
             })
             .then( async() => {
                console.log(this.ids);
+               if(this.ids.length==0){
+                   Toast('请选择要删除的商品！');
+               }else{
                 const result=await post('/api/v1/shop_carts/delmany',{ids:this.ids});
                 console.log(result);
+               }
                 this.cart()
             })
             .catch(() => {});
@@ -154,13 +197,20 @@ export default {
         //商品详情
         detail(id){
         this.$router.push('/detail/'+id)
-    }
+        },
+        // 收货地址列表
+        async addresses(){
+                const result = await get('/api/v1/addresses')
+                this.address=result.data.addresses[0];
+                console.log(this.address);
+            },
+
     }, 
     created() {
-        
     },
     mounted() {
         this.cart()
+        this.addresses()
     },
     }
 </script>
@@ -230,6 +280,7 @@ export default {
         align-items: center;
         width: 100%;
         height: 100px;
+        border-bottom: 1px solid rgb(221, 221, 221);
     }
     .content ul li .check{
         margin: 10px;
